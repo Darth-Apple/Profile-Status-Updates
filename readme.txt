@@ -1,25 +1,21 @@
 MyBB Status Manager (in development): 
 
-QUICK NOTE: This is a development version of this plugin. It is pre-beta. It is strongly recommended to NOT use this on live forums until the release, as we will NOT be developing an upgrade path from pre-release versions to the final version! 
+QUICK NOTE (IMPORTANT): THIS IS AN ALPHA RELEASE! This is NOT live forum safe at this time. Please give us a couple short weeks, we will have a forum-ready beta version coming out very shortly! 
 
-Developers may be seen using this on live forums. I’ve been doing so for a long time to test and to iron out bugs and issues. However, the code that is used here is often newer, and also is being very rapidly changed over what you see on development forums. As such, it’s usually much less stable. We cannot guarantee that it is stable until we release a final release candidate, and eventually, release it on the mod site. Please be patient, it will be coming around Dec 2020!
+In the meantime, we strongly recommend installing this on a development forum only. Any testing, suggestions, bug reports, and ideas are immensely helpful and welcome! Any and all contributions are welcome and greatly appreciated. 
 
+Credits: 
+@Omar G. For many suggestions and for very helpful input and help throughout this process. 
+@Eldenroot for feedback, suggestions, and various feature requests. 
+@Shade for helping with various development questions and sharing expertise
+@Sawedoff for feedback, ideas, and testing. 
+@Whiteneo for feedback, ideas, and testing. And for helping immensely with our my alerts integration. 
+@tc4me for a great deal of testing and feedback
+@MyBB Thank You/Like plugin: With permission, we've based our my alerts integration on the implementation with the TYL plugin. A huge thank you to the developers, who have made Statusfeed's myalerts integration possible. 
 
------------------------------------------
-DEV ROADMAP: 
------------------------------------------
-
-This is the first beta release. This version will be highly unstable and is 
-Intended to help us discover bugs. 
-
-We will be releasing a second beta shortly that will be much safer to use on live forums. 
-
-
-
------------------------------------------
-ABOUT: 
------------------------------------------
-
+--------------------------------
+ABOUT:
+--------------------------------
 
 Status Manager is a fully featured profile comments/status updates plugin made to meet the modern needs of MyBB forums in 2020. It has full support for replies, likes, portal/profile support, postbit popups, and more. Additionally, it is powered by Ajax. Posting, editing, or deleting comments and replies will not generate a page refresh! 
 
@@ -47,6 +43,10 @@ Status Manager is pre beta! Known issues will be tracked extensively on GitHub.
  - Delete form does not remove status via javascript, but does delete. 
  - Native alerts sometimes act funny if another user comments on a status you've commented on. 
  - Tooltip on "show likes" sometimes acts odd. 
+ - Comments display is broken on the portal. 
+ - No alerts generated on "like"
+ - Pagination implementation is clunky on profile. 
+ - Postbit popup does not display properly on default theme (displays in footer). 
 
 -----------------------------------------
 FAQ: 
@@ -54,7 +54,7 @@ FAQ:
 
 - Why is there a maximum comment limit? 
 
-	At this time, pagination does not exist within comments. To prevent an epilogue from taking up your entire screen on an endless scroll, the plugin has a max-comments feature. A future version will address this with better comment scrolling parameters and options. 
+	At this time, pagination does not exist within comments. To prevent an epilogue from taking up your entire screen on an endless scroll, the plugin has a max-comments feature. We will be addressing this very shortly (hopefully before release, or in a version soon after). 
 
 - Should I use native alerts? 
 
@@ -66,17 +66,17 @@ FAQ:
 CONTRIBUTING: 
 -----------------------------------------
 
-Please create any pull requests for contributions! Several people have expressed interest in contributing. I will give a shout out to all contributors on the official release, and look forward to collaborating on the development of this plugin. 
+Many have already contributed privately. These contributions are immensely helpful! I cannot possibly overstate just how much I greatly appreciate the help that I've received on this plugin. It has made this development possible. 
+
+If you'd like to help, please fork on Github and create any pull requests for contributions! I will give a shout out to all contributors on the official release, and look forward to collaborating on the development of this plugin. 
 
 Some guidelines for contributions: 
 
- - Make sure they are secure and stable. :)
+ - I've brought this project back from the dead (from all the way back in 2014). There are some issues that are still being fixed regarding the code itself. As such, there are bits of inline CSS and other issues that are being resolved. If you catch something and would like to fix it, please do not hesitate. It is a huge help for the final project. 
 
- - I've brought this project back from the dead. There are some issues that are still being fixed regarding the code itself. As such, there are bits of inline CSS and other issues that are being resolved. If you catch something and would like to fix it, please do not hesitate. It is a huge help for the final project. 
+ - The initial release will focus on stability, not necessarily on additional features. That being said, nothing is off the table and all ideas and requests are welcome. A follow up release will add additional features! 
 
- - The initial release will focus on stability, not on additional features. A follow up release will add additional features, but the current focus is to ensure that the initial release is as stable as possible. 
-
- - Whatever we do, we will not edit the headerinclude template (unless we have an accompanying compatibility mode with an alternative method of loading scripts). This template is modified on most MyBB upgrades, and as such, we avoid modifying this template to prevent issues on MyBB updates. Currently, there is inline javascript, however. This is not ideal. If anyone would like to help resolve this, please feel free to contribute! Javascript is my weak point, so it's one of the most needed areas for contribution on this plugin.  
+ - I need help with the Javascript aspect of things. It's not my strong suit. I've gotten almost all of the Ajax to work as intended, but there are still bits and pieces of inline JS still hanging in the templates. If you see something that can be improved, please do not hesitate. It will be a huge help for the final project! 
 
 -----------------------------------------
 INSTALLATION: 
@@ -100,4 +100,3 @@ LICENSE:
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
