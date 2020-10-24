@@ -1549,7 +1549,7 @@ function statusfeed_info() {
 
 	function statusfeed_insert_stylesheet ($stylesheet) {
 		global $db;
-		require_once(MYBB_ROOT."admin/inc/functions_themes.php");
+		require_once(MYBB_ADMIN_DIR."/inc/functions_themes.php");
 
 		$stylesheet_info = array(
 			'sid' => 0,
@@ -1574,7 +1574,7 @@ function statusfeed_info() {
 
 	function statusfeed_remove_stylesheet () {
 	    global $db;
-		require_once(MYBB_ROOT."admin/inc/functions_themes.php");
+		require_once(MYBB_ADMIN_DIR."inc/functions_themes.php");
 
 		// removes stylesheet on plugin uninstall
 		$query = $db->simple_select("themes", "tid");
