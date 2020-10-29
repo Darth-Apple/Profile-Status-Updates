@@ -74,6 +74,7 @@ if (isset($mybb->settings['statusfeed_enabled']) && $mybb->settings['statusfeed_
     $plugins->add_hook('index_start', 'statusfeed_index');
 	$plugins->add_hook('usercp_start', 'statusfeed_usercp');
 	$plugins->add_hook('global_start', 'statusfeed_alert');	
+	$plugins->add_hook('global_start', 'statusfeed_no_online');
 
 	// Reports (inspired by MyProfile)
 	$plugins->add_hook("report_type", "statusfeed_report_type");
@@ -115,6 +116,14 @@ function statusfeed_info() {
 
 	// This function checks what kind of request we are trying to serve. 
 	// It directs the request to the correct function afterwards. 
+
+	// Handles WOL functionality and disables it for certain ajax functions. 
+	function statusfeed_no_online() {
+		global $mybb; 
+		if ($mybb->input['action'] == "getLikesPopup") {
+			define("NO_ONLINE", 1);
+		}
+	}
 
 	function statusfeed_requestController () {
 		global $mybb, $db, $lang;
@@ -1472,18 +1481,23 @@ function statusfeed_info() {
 			exit; 
 		}
 
-		if (!isset($mybb->user['uid']) || empty($mybb->user['uid'])) {
-			// error($lang->statusfeed_like_guesterror);
-			echo statusfeed_jgrowl($lang->statusfeed_like_guesterror);
-			exit;
-		}
-		$sid = (int) $mybb->input['statusid']; 
 
-		// Make sure that we have an actual, valid status ID 
+		// Pull status from the database. Make sure we are acting on an actual, valid status. 
+		$sid = (int) $mybb->input['statusid']; 
 		$q = $db->query("SELECT * FROM ".TABLE_PREFIX."statusfeed WHERE `PID` = ".$sid.";");
 		$queryData = $db->fetch_array($q);
+
 		if ($queryData) {
 			
+			// Check to make sure the user is logged in. If not, we simply return the current like count.
+			// This is required because of how the ajax is structured. It expects a response to replace the like count. 
+			if (!isset($mybb->user['uid']) || empty($mybb->user['uid'])) {
+				// error($lang->statusfeed_like_guesterror);
+				echo statusfeed_jgrowl($lang->statusfeed_like_guesterror);
+				echo (int) $queryData['numlikes']; 
+				exit;
+			}
+
 			// Are we removing a like or adding it? 
 			$mode = statusfeed_hasUserLiked($sid);
 			if (!$mode) {
@@ -1515,7 +1529,7 @@ function statusfeed_info() {
 			SET `numlikes` = `numlikes` " . $mtext . "
 			WHERE `PID` = ".$sid.";");
 
-		if (isset($mybb->input['ajaxlike']) && !empty($mybb->input['ajaxlike'])) {
+			if (isset($mybb->input['ajaxlike']) && !empty($mybb->input['ajaxlike'])) {
 				echo statusfeed_jgrowl($successLang); // Return a notification instead of redirecting to a new page. 
 				echo (int) $numLikes;
 				return;
@@ -1524,7 +1538,7 @@ function statusfeed_info() {
 		}
 		else  {
 			if (isset($mybb->input['ajaxlike']) && !empty($mybb->input['ajaxlike'])) {
-				echo "Error";
+				echo statusfeed_jgrowl($lang->statusfeed_no_exist);
 				return;
 			}
 			error($lang->statusfeed_nostatus_like);
