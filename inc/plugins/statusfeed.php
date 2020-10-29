@@ -795,6 +795,7 @@ function statusfeed_info() {
 		// Delete a comment and decrement the number of replies. 
 		$db->delete_query("statusfeed", "PID = $ID", 1);
 		if(isset($reply_id)) {
+			echo ("We're resetting the numcomments as we should..."); // Remove This
 			$db->query("UPDATE ".TABLE_PREFIX."statusfeed SET numcomments=numcomments-1 WHERE PID=".(int) $reply_id); // fix comment count. 
 		}
 		else if (($reply_id < 1) || (!isset($reply_id))) {
@@ -1103,17 +1104,17 @@ function statusfeed_info() {
 			$results = array_reverse($results); // Reverse order so that newest comments display on the bottom. 
 			
 			foreach ($results as $querydata)  {
-				
 				$edit = "";
 				$delete = "";
 				$SID = (int) $querydata['PID'];
 				$UID = (int) $querydata['UID'];
 				$username = $querydata['username'];
-
+				$parent = (int) $querydata['parent'];
+				
 				if (sf_moderator_permissions($mybb->user['usergroup'], $mybb->user['additionalgroups'], $querydata['UID']) == true) {			
 					// $edit = "<a href='statusfeed.php?uid=$UID&status_mode=edit&status_id=".$querydata['PID']."'>".$lang->statusfeed_edit."</a>";
 					$edit = '<a href="javascript:;" onclick=\'$("#status_text_'.$SID.'").load("statusfeed.php?uid='.$UID.'&status_mode=edit&status_id='.$SID.'"); \'>'.$lang->statusfeed_edit.'</a> ';
-					$delete = '<a href="javascript:;" onclick=\'if (confirm("'.$lang->statusfeed_delete_confirm.'")) { $("#statusfeed_outer_notification_container").load("misc.php?action=statusfeed_delete_status&ID='.(int) $SID.'&post_key='.$mybb->post_code.'");}\'>'.$lang->statusfeed_delete.'</a>';
+					$delete = '<a href="javascript:;" onclick=\'if (confirm("'.$lang->statusfeed_delete_confirm.'")) { $("#statusfeed_outer_notification_container").load("misc.php?action=statusfeed_delete_status&ID='.(int) $SID.'&post_key='.$mybb->post_code.'&reply_id='.(int) $parent.'");   $("#status_'.(int) $SID.'").fadeOut( "slow", function() {});   }\'>'.$lang->statusfeed_delete.'</a>';
 				}	
 				
 				if ($querydata['avatar'] != null) {
@@ -1199,11 +1200,12 @@ function statusfeed_info() {
 			$class = " class='sf_ajax_newstatus' style='display: none;'";
 		}
 
+		
 		$SID = (int) $array['PID'];
 		$UID = (int) $array['UID'];
 		if (sf_moderator_permissions($mybb->user['usergroup'], $mybb->user['additionalgroups'], $array['UID']) == true) {			
 			$edit = '<a href="javascript:;" onclick=\'$("#status_text_'.$SID.'").load("statusfeed.php?uid='.$UID.'&status_mode=edit&status_id='.$SID.'"); \'>'.$lang->statusfeed_edit.'</a> ';
-			$delete = '<a href="javascript:;" onclick=\'if (confirm("'.$lang->statusfeed_delete_confirm.'")) { $("#statusfeed_outer_notification_container").load("misc.php?action=statusfeed_delete_status&ID='.(int) $SID.'&post_key='.$mybb->post_code.'");}\'>'.$lang->statusfeed_delete.'</a>';
+			$delete = '<a href="javascript:;" onclick=\'if (confirm("'.$lang->statusfeed_delete_confirm.'")) { $("#statusfeed_outer_notification_container").load("misc.php?action=statusfeed_delete_status&ID='.(int) $SID.'&post_key='.$mybb->post_code.'");    $("#status_'.(int) $SID.'").fadeOut( "slow", function() {});		}\'>'.$lang->statusfeed_delete.'</a>';
 		}	
 		else {
 			$delete = null; 
