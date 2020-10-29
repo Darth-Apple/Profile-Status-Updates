@@ -233,7 +233,8 @@ $(function () {
 });
   // Source: https://makitweb.com/dynamically-show-data-in-the-tooltip-using-ajax/
 
-// Old: Likebutton_link
+  // OLD VERSION - WORKS. Mostly. 
+/* 
  //  $(document).ready(function(){
   jQuery( document ).ready(function( $ ) {
     // initialize tooltip
@@ -244,7 +245,7 @@ $(function () {
       var id = this.id;
       var split_id = id.split('_');
       var statusid = split_id[1];
-    
+      
       $.ajax({
        url:'misc.php?action=getLikesPopup&sid=' + parseInt(statusid),
        type:'post',
@@ -265,7 +266,7 @@ $(function () {
       }
      });
      }
-    });
+    }); 
    
     $(".statusfeed_likebutton_link").mouseout(function(){
       // re-initializing tooltip
@@ -277,7 +278,58 @@ $(function () {
    
    });
 
+   */ 
 
+
+  jQuery( document ).ready(function( $ ) {
+    statusfeed_likeButton()
+  });
+
+  $(document).ajaxComplete(function () {
+    statusfeed_likeButton()
+  });
+
+    function statusfeed_likeButton () {
+      // initialize tooltip
+      $( ".statusfeed_likebutton_link" ).tooltip({
+        tooltipClass: 'likeButton_tooltip',
+        track:true,
+        open: function( event, ui ) {
+        var id = this.id;
+        var split_id = id.split('_');
+        var statusid = split_id[1];
+        
+        $.ajax({
+        url:'misc.php?action=getLikesPopup&sid=' + parseInt(statusid),
+        type:'post',
+        data:{statusid:statusid},
+        success: function(response){
+      
+        // Setting content option
+        // $("#"+id).tooltip('option','content',response);
+        $("#"+id).tooltip({
+          tooltipClass: 'likeButton_tooltip',
+          position: { 
+            my: 'center+50 bottom', 
+            at: 'center top-20',
+            of: '.statusfeed_likebutton_span'
+          },
+          content: response
+        });
+        }
+      });
+      }
+      }); 
+    
+      $(".statusfeed_likebutton_link").mouseout(function(){
+        // re-initializing tooltip
+        $(this).attr('title','Please wait...');
+        $(this).tooltip();
+        $(".ui-helper-hidden-accessible").hide();
+        $('.ui-tooltip').hide();
+      });
+  }
+   // });
 
 
 

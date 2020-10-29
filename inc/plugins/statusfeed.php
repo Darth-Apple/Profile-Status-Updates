@@ -1725,7 +1725,7 @@ function statusfeed_info() {
 
 	function statusfeed_getLikesPopup() {
 		global $lang, $mybb, $db;
-		
+
 		if (!isset($mybb->input['sid']) || !is_numeric($mybb->input['sid'])) {
 			echo $lang->statusfeed_likes_invalid_status;
 			exit;
