@@ -108,7 +108,6 @@ function statusfeed_dropdown(sid) {
               $(".sf_ajax_newstatus").fadeIn(500);
               // $( "#status_{$ID}" ).html(data);
               // $( "#status_{$ID}" ).find('tbody').empty().append(data);
-              // alert(data);
       
             }
             });

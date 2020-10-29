@@ -952,7 +952,7 @@ function statusfeed_activate () {
     }
     
     .statusfeed_noborder_left {
-        padding-bottom: 0px; border-left: none; 
+        padding-bottom: 0px; border-left: none; padding-right: 15px; 
     }
     
     .statusfeed_noborder {
@@ -960,7 +960,7 @@ function statusfeed_activate () {
     }
     
     .statusfeed_noborder_left_min {
-        border-left: none; 
+        border-left: none; padding-right: 15px;
     }
     
     .statusfeed_comment_padding {
