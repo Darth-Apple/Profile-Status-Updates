@@ -1634,9 +1634,9 @@ function statusfeed_info() {
                 } else {
                     $verified = true;
                     $comment = $db->fetch_array($query);
-                    $id = $comment["PID"];
-                    $id2 = $comment["wall_id"]; // user who received the comment
-                    $id3 = $comment["uid"]; // user who made the comment
+                    $id = (int) $comment["PID"];
+                    $id2 = (int) $comment["wall_id"]; // user who received the comment
+                    $id3 = (int) $comment["uid"]; // user who made the comment
                     $report_type_db = "type = 'status'";
                 }
             }
@@ -1657,7 +1657,7 @@ function statusfeed_info() {
 		if ($querydata['parent'] > 0) {
 			return "statusfeed.php?comment=1&sid=".(int)$sid;
 		} else {
-			return "statusfeed.php?sid=".$sid;
+			return "statusfeed.php?sid=".(int)$sid;
 		}
 	}
 

@@ -233,11 +233,12 @@ $(function () {
 });
   // Source: https://makitweb.com/dynamically-show-data-in-the-tooltip-using-ajax/
 
-
+// Old: Likebutton_link
  //  $(document).ready(function(){
   jQuery( document ).ready(function( $ ) {
     // initialize tooltip
     $( ".statusfeed_likebutton_link" ).tooltip({
+      tooltipClass: 'likeButton_tooltip',
       track:true,
       open: function( event, ui ) {
       var id = this.id;
@@ -250,7 +251,7 @@ $(function () {
        data:{statusid:statusid},
        success: function(response){
     
-       // Setting content option
+      // Setting content option
       // $("#"+id).tooltip('option','content',response);
       $("#"+id).tooltip({
         tooltipClass: 'likeButton_tooltip',
