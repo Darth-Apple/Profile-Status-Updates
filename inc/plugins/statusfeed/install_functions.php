@@ -944,7 +944,8 @@ function statusfeed_activate () {
     }
     
     .statusfeed_mini_comments_borderbottom_div {
-        border-bottom: 1px solid #d6d6d6;
+        /* border-bottom: 1px solid #d6d6d6; */
+        border-bottom: 1px solid rgba(187 183 183 / 33%); 
     }
     
     .statusfeed_noborder_right {
@@ -996,7 +997,8 @@ function statusfeed_activate () {
     }
     
     .statusfeed_commentcontainer_table {
-        width: 100%; width: 100%; border-left: 3px solid #E2E2E2; padding-left: 5px;
+        width: 100%; width: 100%; border-left: 3px solid rgba(128 122 122 / 21%); padding-left: 5px;
+		/* border-left: 3px solid #E2E2E2; */ 
     }
     
     .statusfeed_commentcontainer_td1 {
@@ -1082,6 +1084,7 @@ function statusfeed_activate () {
 
     .sf_trow2 {
         background: #f1f1f1 !important;
+        border-right: 1px solid rgb(127 127 126 / 27%) !important;
     }
     
     .sf_trow2, .statusfeed_commentlink {
