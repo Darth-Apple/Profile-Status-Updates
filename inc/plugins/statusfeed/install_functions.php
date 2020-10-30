@@ -432,7 +432,7 @@ $(\'.sf_comment_form_{$parent}\').on(\'submit\', function (e) {
         
 <tbody id="statusfeed_header">
     <tr>
-        <td colspan="2" class="thead thead_portal">
+        <td colspan="2" class="thead">
             <div>
                 <strong>{$lang->statusfeed_updates}</strong>
 
@@ -1075,6 +1075,20 @@ function statusfeed_activate () {
 		border: 1px solid #dddddd !important; 
     }
 
+    .statusfeed_commentcontainer_table .trow1, .statusfeed_commentcontainer_table .trow2 {
+        padding: 3px; 
+    }
+
+
+    .sf_trow2 {
+        background: #f1f1f1 !important;
+    }
+    
+    .sf_trow2, .statusfeed_commentlink {
+        border-bottom: 1px solid #dddddd !important;
+        border-radius: 0px !important;
+    }
+    
     /*! jQuery UI - v1.12.1 - 2020-10-29
     * http://jqueryui.com
     * Includes: core.css, tooltip.css
